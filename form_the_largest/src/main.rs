@@ -1,9 +1,25 @@
 fn max_number(n: u32) -> u32 {
-    // your code here
+  let mut collected_numbers = Vec::new();
+  let mut result = String::new();
+  fetch_each_number(n, &mut collected_numbers);
+  collected_numbers.sort();
+  collected_numbers.reverse();
+  for el in collected_numbers{
+    result.push_str( &el.to_string() );
+  }
+  result.parse::<u32>().unwrap()
+}
+
+fn fetch_each_number(n: u32, mut collected: &mut Vec<u32>) -> &mut Vec<u32>{
+  collected.push(n%10);
+  if n>9{
+    fetch_each_number(n/10, &mut collected); 
+  } 
+  collected
 }
 
 fn main() {
-    println!("Hello, world!");
+    println!("{}", max_number(63729));
 }
 
 #[test]
